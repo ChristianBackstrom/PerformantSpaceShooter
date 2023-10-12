@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -9,6 +10,12 @@ public class SpawnerMono : MonoBehaviour
     public int AsteroidAmount;
     public GameObject Prefab;
     public uint RandomSeed;
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(this.transform.position, new Vector3(FieldDimensions.x, 2, FieldDimensions.y));
+    }
 }
 
 public class SpawnerBaker : Baker<SpawnerMono>

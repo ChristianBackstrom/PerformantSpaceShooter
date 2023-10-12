@@ -1,6 +1,8 @@
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
+using Unity.Mathematics;
+using Unity.Transforms;
 
 [BurstCompile]
 [UpdateInGroup(typeof(InitializationSystemGroup))]
@@ -15,7 +17,6 @@ public partial struct SpawnAsteroidSystem : ISystem
     [BurstCompile]
     public void OnDestroy(ref SystemState state)
     {
-        throw new System.NotImplementedException();
     }
 
     [BurstCompile]
@@ -23,13 +24,16 @@ public partial struct SpawnAsteroidSystem : ISystem
     {
         state.Enabled = false;
         var spawnerEntity = SystemAPI.GetSingletonEntity<SpawnerProperties>();
-        var spawner = SystemAPI.GetAspect<SpawnerAspect>(spawnerEntity);
+        var spawnerAspect = SystemAPI.GetAspect<SpawnerAspect>(spawnerEntity);
 
         var ecb = new EntityCommandBuffer(Allocator.Temp);
 
-        for (int i = 0; i < spawner.AsteroidAmount; i++)
+        for (int i = 0; i < spawnerAspect.AsteroidAmount; i++)
         {
-            ecb.Instantiate(spawner.AsteroidPrefab);
+            Entity newAsteroid = ecb.Instantiate(spawnerAspect.AsteroidPrefab);
+            var newAsteroidTransform = spawnerAspect.GetRandomTransform();
+            
+            ecb.SetComponent(newAsteroid, newAsteroidTransform);
         }
         
         ecb.Playback(state.EntityManager);
