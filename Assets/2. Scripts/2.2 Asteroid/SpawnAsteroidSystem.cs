@@ -22,20 +22,28 @@ public partial struct SpawnAsteroidSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        state.Enabled = false;
-        var spawnerEntity = SystemAPI.GetSingletonEntity<SpawnerProperties>();
-        var spawnerAspect = SystemAPI.GetAspect<SpawnerAspect>(spawnerEntity);
-
-        var ecb = new EntityCommandBuffer(Allocator.Temp);
-
-        for (int i = 0; i < spawnerAspect.AsteroidAmount; i++)
-        {
-            Entity newAsteroid = ecb.Instantiate(spawnerAspect.AsteroidPrefab);
-            var newAsteroidTransform = spawnerAspect.GetRandomTransform();
-            
-            ecb.SetComponent(newAsteroid, newAsteroidTransform);
-        }
+        float deltaTime = SystemAPI.Time.DeltaTime;
+        var ecbSingleton = SystemAPI.GetSingleton<BeginInitializationEntityCommandBufferSystem.Singleton>();
         
-        ecb.Playback(state.EntityManager);
+        new SpawnAsteroidJob()
+        {
+            DeltaTime = deltaTime,
+            ECB = ecbSingleton.CreateCommandBuffer(state.WorldUnmanaged),
+        }.Run();
+    }
+}
+[BurstCompile]
+public partial struct SpawnAsteroidJob : IJobEntity
+{
+    public float DeltaTime;
+    public EntityCommandBuffer ECB;
+    private void Execute(SpawnerAspect spawnerAspect)
+    {
+        spawnerAspect.AsteroidSpawnTimer -= DeltaTime;
+        if (!spawnerAspect.TimeToSpawnAsteroid) return;
+
+        spawnerAspect.AsteroidSpawnTimer = spawnerAspect.AsteroidSpawnRate;
+
+        Entity newAsteroid = ECB.Instantiate(spawnerAspect.AsteroidPrefab);
     }
 }

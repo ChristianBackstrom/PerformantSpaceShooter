@@ -10,6 +10,7 @@ public class SpawnerMono : MonoBehaviour
     public int AsteroidAmount;
     public GameObject Prefab;
     public uint RandomSeed;
+    public float AsteroidSpawnRate;
 
     private void OnDrawGizmos()
     {
@@ -26,12 +27,15 @@ public class SpawnerBaker : Baker<SpawnerMono>
         {
             FieldDimensions = authoring.FieldDimensions,
             AsteroidAmount = authoring.AsteroidAmount,
-            Prefab = GetEntity(authoring.Prefab)
+            Prefab = GetEntity(authoring.Prefab),
+            AsteroidSpawnRate = authoring.AsteroidSpawnRate,
         });
         
         AddComponent(new RandomNumber
         {
             Value = Random.CreateFromIndex(authoring.RandomSeed),
         });
+        
+        AddComponent<AsteroidSpawnTimer>();
     }
 }
