@@ -7,7 +7,8 @@ using Random = Unity.Mathematics.Random;
 public class SpawnerMono : MonoBehaviour
 {
     public float2 FieldDimensions;
-    public int AsteroidAmount;
+    public float MinSpawnDistance;
+    public float MaxSpawnDistance;
     public GameObject Prefab;
     public uint RandomSeed;
     public float AsteroidSpawnRate;
@@ -26,9 +27,10 @@ public class SpawnerBaker : Baker<SpawnerMono>
         AddComponent(new SpawnerProperties
         {
             FieldDimensions = authoring.FieldDimensions,
-            AsteroidAmount = authoring.AsteroidAmount,
             Prefab = GetEntity(authoring.Prefab),
             AsteroidSpawnRate = authoring.AsteroidSpawnRate,
+            MinSpawnDistance = authoring.MinSpawnDistance,
+            MaxSpawnDistance = authoring.MaxSpawnDistance,
         });
         
         AddComponent(new RandomNumber

@@ -14,9 +14,6 @@ public readonly partial struct SpawnerAspect : IAspect
     private readonly RefRO<SpawnerProperties> _spawnerProperties;
     private readonly RefRW<RandomNumber> _randomNumber;
     private readonly RefRW<AsteroidSpawnTimer> _asteroidSpawnTimer;
-
-    public int AsteroidAmount => _spawnerProperties.ValueRO.AsteroidAmount;
-
     public Entity AsteroidPrefab => _spawnerProperties.ValueRO.Prefab;
 
     public LocalTransform GetRandomTransform()
@@ -31,12 +28,19 @@ public readonly partial struct SpawnerAspect : IAspect
     
     private float3 GetRandomPosition()
     {
-        float3 randomPosition;
-        do
+        float3 randomPosition = new float3();
+
+        float2 randomUnitCircle = _randomNumber.ValueRW.Value.NextFloat2Direction();
+
+        randomPosition = new()
         {
-            randomPosition = _randomNumber.ValueRW.Value.NextFloat3(MinCorner, MaxCorner);
-        } while (math.distancesq(_transformAspect.ValueRO.Position, randomPosition) <= PlayerSafetyRadius);
-        
+            x = randomUnitCircle.x,
+            y = 0,
+            z = randomUnitCircle.y
+        };
+
+        randomPosition *= _randomNumber.ValueRW.Value.NextFloat(_spawnerProperties.ValueRO.MinSpawnDistance, _spawnerProperties.ValueRO.MaxSpawnDistance);
+
         return randomPosition;
     }
 
@@ -61,4 +65,6 @@ public readonly partial struct SpawnerAspect : IAspect
     public bool TimeToSpawnAsteroid => AsteroidSpawnTimer <= 0;
 
     public float AsteroidSpawnRate => _spawnerProperties.ValueRO.AsteroidSpawnRate;
+    
+    
 }

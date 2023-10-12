@@ -45,5 +45,8 @@ public partial struct SpawnAsteroidJob : IJobEntity
         spawnerAspect.AsteroidSpawnTimer = spawnerAspect.AsteroidSpawnRate;
 
         Entity newAsteroid = ECB.Instantiate(spawnerAspect.AsteroidPrefab);
+
+        var newAsteroidTransform = spawnerAspect.GetRandomTransform();
+        ECB.SetComponent(newAsteroid, newAsteroidTransform);
     }
 }
