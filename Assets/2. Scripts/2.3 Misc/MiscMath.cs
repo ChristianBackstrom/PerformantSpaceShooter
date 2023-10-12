@@ -9,6 +9,6 @@ public static class MiscMath
     {
         float x = start.x - end.x;
         float y = start.y - end.y;
-        return math.atan2(x, y) + math.PI;
+        return math.atan2(y, x) + math.PI;
     }
 }

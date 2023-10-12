@@ -16,7 +16,12 @@ public class SpawnerMono : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(this.transform.position, new Vector3(FieldDimensions.x, 2, FieldDimensions.y));
+        Gizmos.DrawWireCube(this.transform.position, new()
+        {
+            x = FieldDimensions.x,
+            y = FieldDimensions.y,
+            z = 0,
+        });
     }
 }
 

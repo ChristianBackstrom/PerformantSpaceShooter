@@ -18,10 +18,11 @@ public readonly partial struct SpawnerAspect : IAspect
 
     public LocalTransform GetRandomTransform()
     {
+        float3 position = GetRandomPosition();
         return new LocalTransform()
         {
-            Position = GetRandomPosition(),
-            Rotation = GetRandomRotation(),
+            Position = position,
+            Rotation = quaternion.RotateZ(MiscMath.GetHeading(position.xy, _transformAspect.ValueRO.Position.xy)),
             Scale = GetRandomScale(.5f),
         };
     }
@@ -35,8 +36,8 @@ public readonly partial struct SpawnerAspect : IAspect
         randomPosition = new()
         {
             x = randomUnitCircle.x,
-            y = 0,
-            z = randomUnitCircle.y
+            y = randomUnitCircle.y,
+            z = 0
         };
 
         randomPosition *= _randomNumber.ValueRW.Value.NextFloat(_spawnerProperties.ValueRO.MinSpawnDistance, _spawnerProperties.ValueRO.MaxSpawnDistance);
@@ -53,7 +54,7 @@ public readonly partial struct SpawnerAspect : IAspect
         z = _spawnerProperties.ValueRO.FieldDimensions.y/2f
     };
     private const float PlayerSafetyRadius = 100;
-    private quaternion GetRandomRotation() => quaternion.RotateY(_randomNumber.ValueRW.Value.NextFloat(-.25f, .25f));
+    private quaternion GetRandomRotation() => quaternion.RotateZ(_randomNumber.ValueRW.Value.NextFloat(-.25f, .25f));
     private float GetRandomScale(float min) => _randomNumber.ValueRW.Value.NextFloat(min, 1f);
 
     public float AsteroidSpawnTimer
