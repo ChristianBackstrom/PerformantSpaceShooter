@@ -29,20 +29,22 @@ public class SpawnerBaker : Baker<SpawnerMono>
 {
     public override void Bake(SpawnerMono authoring)
     {
-        AddComponent(new SpawnerProperties
+        var spawnerEntity = GetEntity(TransformUsageFlags.Dynamic);
+
+        AddComponent(spawnerEntity, new SpawnerProperties
         {
             FieldDimensions = authoring.FieldDimensions,
-            Prefab = GetEntity(authoring.Prefab),
+            Prefab = GetEntity(authoring.Prefab, TransformUsageFlags.Dynamic),
             AsteroidSpawnRate = authoring.AsteroidSpawnRate,
             MinSpawnDistance = authoring.MinSpawnDistance,
             MaxSpawnDistance = authoring.MaxSpawnDistance,
         });
         
-        AddComponent(new RandomNumber
+        AddComponent(spawnerEntity, new RandomNumber
         {
             Value = Random.CreateFromIndex(authoring.RandomSeed),
         });
         
-        AddComponent<AsteroidSpawnTimer>();
+        AddComponent<AsteroidSpawnTimer>(spawnerEntity);
     }
 }

@@ -29,7 +29,7 @@ public partial struct SpawnAsteroidSystem : ISystem
         {
             DeltaTime = deltaTime,
             ECB = ecbSingleton.CreateCommandBuffer(state.WorldUnmanaged),
-        }.Run();
+        }.Schedule();
     }
 }
 [BurstCompile]
@@ -48,5 +48,8 @@ public partial struct SpawnAsteroidJob : IJobEntity
 
         var newAsteroidTransform = spawnerAspect.GetRandomTransform();
         ECB.SetComponent(newAsteroid, newAsteroidTransform);
+        
+        var zombieHeading = MiscMath.GetHeading(newAsteroidTransform.Position.xy, spawnerAspect.Position.xy);
+        ECB.SetComponent(newAsteroid, new AsteroidHeading(){Value = zombieHeading});
     }
 }

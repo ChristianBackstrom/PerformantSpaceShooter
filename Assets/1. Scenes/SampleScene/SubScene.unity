@@ -170,9 +170,11 @@ MonoBehaviour:
   FieldDimensions:
     x: 40
     y: 40
-  AsteroidAmount: 100
+  MinSpawnDistance: 10
+  MaxSpawnDistance: 20
   Prefab: {fileID: 970698392903307348, guid: ea09f295acb16574a91a1cc1ab574754, type: 3}
   RandomSeed: 100
+  AsteroidSpawnRate: 0.5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

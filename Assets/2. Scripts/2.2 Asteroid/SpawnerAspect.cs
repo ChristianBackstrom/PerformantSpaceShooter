@@ -10,6 +10,8 @@ public readonly partial struct SpawnerAspect : IAspect
     public readonly Entity Entity;
 
     private readonly RefRW<LocalTransform> _transformAspect;
+    private LocalTransform Transform => _transformAspect.ValueRO;
+    public float3 Position => Transform.Position;
 
     private readonly RefRO<SpawnerProperties> _spawnerProperties;
     private readonly RefRW<RandomNumber> _randomNumber;
