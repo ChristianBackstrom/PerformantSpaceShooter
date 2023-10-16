@@ -43,13 +43,19 @@ public partial struct SpawnAsteroidJob : IJobEntity
         if (!spawnerAspect.TimeToSpawnAsteroid) return;
 
         spawnerAspect.AsteroidSpawnTimer = spawnerAspect.AsteroidSpawnRate;
-
         Entity newAsteroid = ECB.Instantiate(spawnerAspect.AsteroidPrefab);
 
-        var newAsteroidTransform = spawnerAspect.GetRandomTransform();
-        ECB.SetComponent(newAsteroid, newAsteroidTransform);
         
-        var zombieHeading = MiscMath.GetHeading(newAsteroidTransform.Position.xy, spawnerAspect.Position.xy);
-        ECB.SetComponent(newAsteroid, new AsteroidHeading(){Value = zombieHeading});
+        float3 position = spawnerAspect.GetRandomPosition();
+        var asteroidHeading = MiscMath.GetHeading(position.xy, spawnerAspect.GetRandomPositionInBox());
+        ECB.SetComponent(newAsteroid, new AsteroidHeading(){Value = asteroidHeading});
+        
+        var newAsteroidTransform = new LocalTransform()
+        {
+            Position = position,
+            Rotation = quaternion.RotateZ(asteroidHeading),
+            Scale = 1f
+        };
+        ECB.SetComponent(newAsteroid, newAsteroidTransform);
     }
 }

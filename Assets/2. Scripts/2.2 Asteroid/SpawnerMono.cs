@@ -22,6 +22,18 @@ public class SpawnerMono : MonoBehaviour
             y = FieldDimensions.y,
             z = 0,
         });
+        
+        Gizmos.color = Color.red;
+        
+        Gizmos.DrawWireSphere(transform.position, MinSpawnDistance);
+        Gizmos.DrawWireSphere(transform.position, MaxSpawnDistance);
+
+        float step = (MaxSpawnDistance - MinSpawnDistance) / 100;
+
+        for (int i = 0; i < 100; i++)
+        {
+            Gizmos.DrawWireSphere(transform.position, MinSpawnDistance + step * i);
+        }
     }
 }
 

@@ -12,24 +12,14 @@ public readonly partial struct SpawnerAspect : IAspect
     private readonly RefRW<LocalTransform> _transformAspect;
     private LocalTransform Transform => _transformAspect.ValueRO;
     public float3 Position => Transform.Position;
+    public float2 FieldDimensions => _spawnerProperties.ValueRO.FieldDimensions;
 
     private readonly RefRO<SpawnerProperties> _spawnerProperties;
     private readonly RefRW<RandomNumber> _randomNumber;
     private readonly RefRW<AsteroidSpawnTimer> _asteroidSpawnTimer;
     public Entity AsteroidPrefab => _spawnerProperties.ValueRO.Prefab;
 
-    public LocalTransform GetRandomTransform()
-    {
-        float3 position = GetRandomPosition();
-        return new LocalTransform()
-        {
-            Position = position,
-            Rotation = quaternion.RotateZ(MiscMath.GetHeading(position.xy, _transformAspect.ValueRO.Position.xy)),
-            Scale = GetRandomScale(.5f),
-        };
-    }
-    
-    private float3 GetRandomPosition()
+    public float3 GetRandomPosition()
     {
         float3 randomPosition = new float3();
 
@@ -45,6 +35,11 @@ public readonly partial struct SpawnerAspect : IAspect
         randomPosition *= _randomNumber.ValueRW.Value.NextFloat(_spawnerProperties.ValueRO.MinSpawnDistance, _spawnerProperties.ValueRO.MaxSpawnDistance);
 
         return randomPosition;
+    }
+
+    public float2 GetRandomPositionInBox()
+    {
+        return _randomNumber.ValueRW.Value.NextFloat2(-FieldDimensions/2, FieldDimensions/2);
     }
 
     private float3 MinCorner => _transformAspect.ValueRO.Position - HalfDimensions;
