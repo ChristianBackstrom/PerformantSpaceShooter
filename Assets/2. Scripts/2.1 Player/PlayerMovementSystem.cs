@@ -21,7 +21,7 @@ public partial struct PlayerMovementSystem : ISystem
         new PlayerMoveJob
         {
             DeltaTime = deltaTime,
-        }.Schedule();
+        }.ScheduleParallel();
     }
 }
 

@@ -16,6 +16,7 @@ public class PlayerBaker : Baker<PlayerMono>
         Entity entity = GetEntity(TransformUsageFlags.Dynamic);
         
         AddComponent<MovementInputProperties>(entity);
+        AddComponent<PlayerTag>(entity);
         
         AddComponent(entity, new MovementValues()
         {
@@ -27,5 +28,6 @@ public class PlayerBaker : Baker<PlayerMono>
         {
             Value = 0,
         });
+        
     }
 }
