@@ -11,4 +11,10 @@ public static class MiscMath
         float y = start.y - end.y;
         return math.atan2(y, x) + math.PI;
     }
+
+    public static float GetDistanceSqr(float2 start, float2 end)
+    {
+        float2 offset = start - end;
+        return offset.x * offset.x + offset.y * offset.y;
+    }
 }

@@ -13,3 +13,5 @@ public struct AsteroidHeading : IComponentData
 {
     public float Value;
 }
+
+public struct AsteroidTag : IComponentData {}

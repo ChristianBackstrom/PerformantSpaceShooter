@@ -26,5 +26,7 @@ public class AsteroidBaker : Baker<AsteroidMono>
             Time = authoring.Lifetime,
             Lifetime = authoring.Lifetime,
         });
+        
+        AddComponent<AsteroidTag>(asteroidEntity);
     }
 }

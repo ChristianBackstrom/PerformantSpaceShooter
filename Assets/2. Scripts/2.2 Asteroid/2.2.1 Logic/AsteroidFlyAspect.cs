@@ -14,6 +14,8 @@ public readonly partial struct AsteroidFlyAspect : IAspect
 
     public float Heading => _asteroidHeading.ValueRO.Value;
     public float Speed => _asteroidFlyProperties.ValueRO.Speed;
+
+    public float2 Position => _transformAspect.ValueRO.Position.xy;
     
     public void Move(float deltaTime)
     {
