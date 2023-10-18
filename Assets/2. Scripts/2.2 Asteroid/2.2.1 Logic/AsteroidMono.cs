@@ -6,6 +6,7 @@ using UnityEngine;
 public class AsteroidMono : MonoBehaviour
 {
     public float Speed;
+    public float Lifetime = 20;
 }
 
 public class AsteroidBaker : Baker<AsteroidMono>
@@ -19,5 +20,11 @@ public class AsteroidBaker : Baker<AsteroidMono>
             Speed = authoring.Speed,
         });
         AddComponent<AsteroidHeading>(asteroidEntity);
+        
+        AddComponent(asteroidEntity, new LifetimeComponent()
+        {
+            Time = authoring.Lifetime,
+            Lifetime = authoring.Lifetime,
+        });
     }
 }
