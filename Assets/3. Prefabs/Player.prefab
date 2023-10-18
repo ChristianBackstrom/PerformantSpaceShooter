@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 7428575248892485211}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.78, y: 0, z: 0}
+  m_LocalPosition: {x: -0.39, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9162041981386202034}
   - component: {fileID: 8038915011239394693}
-  - component: {fileID: 5184478657575319379}
+  - component: {fileID: 8156748053363997466}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -146,7 +146,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &5184478657575319379
+--- !u!114 &8156748053363997466
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -155,11 +155,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8566096719963394274}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d125fd35b22924b4f8a60f0272159a16, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c959598ed51f4f458a8cdb14f00948d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thrustSpeed: 3
-  rotationSpeed: 150
+  ThrustSpeed: 10
+  TurnRate: 100
 --- !u!1 &9157310429353617236
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,7 +187,7 @@ Transform:
   m_GameObject: {fileID: 9157310429353617236}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.39, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

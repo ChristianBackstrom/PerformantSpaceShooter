@@ -59,3 +59,29 @@ public partial struct SpawnAsteroidJob : IJobEntity
         ECB.SetComponent(newAsteroid, newAsteroidTransform);
     }
 }
+
+[BurstCompile]
+public partial struct SpawnAsteroidTestJob : IJobEntity
+{
+    public int Amount;
+    public EntityCommandBuffer ECB;
+    private void Execute(SpawnerAspect spawnerAspect)
+    {
+        for (int i = 0; i < Amount; i++)
+        {
+            Entity newAsteroid = ECB.Instantiate(spawnerAspect.AsteroidPrefab);
+            
+            float3 position = spawnerAspect.GetRandomPosition();
+            var asteroidHeading = MiscMath.GetHeading(position.xy, spawnerAspect.GetRandomPositionInBox());
+            ECB.SetComponent(newAsteroid, new AsteroidHeading(){Value = asteroidHeading});
+            
+            var newAsteroidTransform = new LocalTransform()
+            {
+                Position = position,
+                Rotation = quaternion.RotateZ(asteroidHeading),
+                Scale = 1f
+            };
+            ECB.SetComponent(newAsteroid, newAsteroidTransform);
+        }   
+    }
+}

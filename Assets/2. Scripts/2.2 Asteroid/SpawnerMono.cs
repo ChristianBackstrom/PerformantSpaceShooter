@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using Unity.Entities;
 using Unity.Mathematics;
+using Unity.Physics;
 using Random = Unity.Mathematics.Random;
 
 public class SpawnerMono : MonoBehaviour
