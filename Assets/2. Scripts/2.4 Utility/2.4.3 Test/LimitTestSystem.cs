@@ -40,6 +40,8 @@ public partial struct SpawnAsteroidTestJob : IJobEntity
     public EntityCommandBuffer ECB;
     private void Execute(SpawnerAspect spawnerAspect)
     {
+        if (!spawnerAspect.ShouldLimitTest) return;
+        
         for (int i = 0; i < Amount; i++)
         {
             Entity newAsteroid = ECB.Instantiate(spawnerAspect.AsteroidPrefab);
@@ -67,6 +69,8 @@ public partial struct SpawnProjectileTestJob : IJobEntity
     public Entity ProjectilePrefab;
     private void Execute(SpawnerAspect spawnerAspect)
     {
+        if (!spawnerAspect.ShouldLimitTest) return;
+
         for (int i = 0; i < Amount; i++)
         {
             Entity newProjectile = ECB.Instantiate(ProjectilePrefab);

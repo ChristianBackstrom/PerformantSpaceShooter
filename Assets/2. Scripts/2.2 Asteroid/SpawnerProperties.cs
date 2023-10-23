@@ -14,3 +14,8 @@ public struct AsteroidSpawnTimer : IComponentData
 {
     public float Value;
 }
+
+public struct LimitTest : IComponentData
+{
+    public bool Value;
+}

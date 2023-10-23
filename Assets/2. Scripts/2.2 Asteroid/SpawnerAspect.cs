@@ -12,11 +12,14 @@ public readonly partial struct SpawnerAspect : IAspect
     private readonly RefRW<LocalTransform> _transformAspect;
     private LocalTransform Transform => _transformAspect.ValueRO;
     public float3 Position => Transform.Position;
+
+    public bool ShouldLimitTest => _limitTest.ValueRO.Value;
     public float2 FieldDimensions => _spawnerProperties.ValueRO.FieldDimensions;
 
     private readonly RefRO<SpawnerProperties> _spawnerProperties;
     private readonly RefRW<RandomNumber> _randomNumber;
     private readonly RefRW<AsteroidSpawnTimer> _asteroidSpawnTimer;
+    private readonly RefRO<LimitTest> _limitTest;
     public Entity AsteroidPrefab => _spawnerProperties.ValueRO.Prefab;
 
     public float2 RandomPosOnUnitCircle()

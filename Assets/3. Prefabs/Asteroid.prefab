@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f251b8ef5e95449429092657f7d28113, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 1
-  Lifetime: 10090
+  Speed: 10
+  Lifetime: 100
 --- !u!50 &2597291874743041683
 Rigidbody2D:
   serializedVersion: 4

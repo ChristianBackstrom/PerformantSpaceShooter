@@ -13,6 +13,7 @@ public class SpawnerMono : MonoBehaviour
     public GameObject Prefab;
     public uint RandomSeed;
     public float AsteroidSpawnRate;
+    public bool LimitTest;
 
     [SerializeField] private bool useGizmos;
     
@@ -64,6 +65,11 @@ public class SpawnerBaker : Baker<SpawnerMono>
         AddComponent(spawnerEntity, new AsteroidSpawnTimer()
         {
             Value = authoring.AsteroidSpawnRate
+        });
+        
+        AddComponent(spawnerEntity, new LimitTest()
+        {
+            Value = authoring.LimitTest
         });
     }
 }

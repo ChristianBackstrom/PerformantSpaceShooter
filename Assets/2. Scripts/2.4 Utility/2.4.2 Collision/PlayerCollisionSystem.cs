@@ -42,20 +42,8 @@ public partial struct PlayerCollisionSystem : ISystem
         ECB.Dispose();
     }
     
-    private static void CleanAndRestartECS()
+    private void CleanAndRestartECS()
     {
-        var defaultWorld = World.DefaultGameObjectInjectionWorld;
-        defaultWorld.EntityManager.CompleteAllTrackedJobs();
-        foreach (var system in defaultWorld.Systems)
-        {
-            system.Enabled = false;
-        }
-        defaultWorld.Dispose();
-        DefaultWorldInitialization.Initialize("Default World", false);
-        if (!ScriptBehaviourUpdateOrder.IsWorldInCurrentPlayerLoop(World.DefaultGameObjectInjectionWorld))
-        {
-            ScriptBehaviourUpdateOrder.AppendWorldToCurrentPlayerLoop(World.DefaultGameObjectInjectionWorld);
-        }  
-        SceneManager.LoadScene("Game", LoadSceneMode.Single);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
     }
 }
