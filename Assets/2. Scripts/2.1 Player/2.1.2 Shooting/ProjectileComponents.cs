@@ -17,6 +17,7 @@ public struct ProjectileCooldownTimer : IComponentData
 public struct ProjectileComponent : IComponentData
 {
     public float Speed;
+    public Entity ProjectilePrefab;
 }
 
 public struct FireProjectileTag : IEnableableComponent, IComponentData { }

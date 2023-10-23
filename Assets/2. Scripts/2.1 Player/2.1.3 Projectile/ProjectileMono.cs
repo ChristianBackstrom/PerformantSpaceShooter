@@ -6,6 +6,7 @@ using UnityEngine;
 public class ProjectileMono : MonoBehaviour
 {
     public float Speed;
+    public float Lifetime;
 }
 
 public class ProjectileBaker : Baker<ProjectileMono>
@@ -20,5 +21,11 @@ public class ProjectileBaker : Baker<ProjectileMono>
         });
         
         AddComponent<ProjectileTag>(entity);
+        
+        AddComponent(entity, new LifetimeComponent()
+        {
+            Lifetime = authoring.Lifetime,
+            Time = authoring.Lifetime
+        });
     }
 }

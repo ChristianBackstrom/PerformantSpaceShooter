@@ -19,6 +19,11 @@ public readonly partial struct SpawnerAspect : IAspect
     private readonly RefRW<AsteroidSpawnTimer> _asteroidSpawnTimer;
     public Entity AsteroidPrefab => _spawnerProperties.ValueRO.Prefab;
 
+    public float2 RandomPosOnUnitCircle()
+    {
+        return _randomNumber.ValueRW.Value.NextFloat2Direction();
+    }
+
     public float3 GetRandomPosition()
     {
         float3 randomPosition = new float3();

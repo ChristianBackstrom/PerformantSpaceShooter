@@ -14,8 +14,11 @@ public class SpawnerMono : MonoBehaviour
     public uint RandomSeed;
     public float AsteroidSpawnRate;
 
+    [SerializeField] private bool useGizmos;
+    
     private void OnDrawGizmos()
     {
+        if (!useGizmos) return;
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(this.transform.position, new()
         {
@@ -58,6 +61,9 @@ public class SpawnerBaker : Baker<SpawnerMono>
             Value = Random.CreateFromIndex(authoring.RandomSeed),
         });
         
-        AddComponent<AsteroidSpawnTimer>(spawnerEntity);
+        AddComponent(spawnerEntity, new AsteroidSpawnTimer()
+        {
+            Value = authoring.AsteroidSpawnRate
+        });
     }
 }

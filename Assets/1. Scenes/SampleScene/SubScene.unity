@@ -193,7 +193,7 @@ MonoBehaviour:
   MaxSpawnDistance: 56.9
   Prefab: {fileID: 970698392903307348, guid: ea09f295acb16574a91a1cc1ab574754, type: 3}
   RandomSeed: 100
-  AsteroidSpawnRate: 0.001
+  AsteroidSpawnRate: 1000
 --- !u!1001 &1987782992
 PrefabInstance:
   m_ObjectHideFlags: 0

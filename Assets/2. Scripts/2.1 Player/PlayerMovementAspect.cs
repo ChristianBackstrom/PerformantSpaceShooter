@@ -14,6 +14,8 @@ public readonly partial struct PlayerMovementAspect : IAspect
 
     public float2 MoveInput => movementInputProperties.ValueRO.Value;
 
+    public float2 Position => transform.ValueRO.Position.xy;
+
     public float Speed => movementValues.ValueRO.ThrustSpeed;
     public float TurnRate => movementValues.ValueRO.TurnRate;
     

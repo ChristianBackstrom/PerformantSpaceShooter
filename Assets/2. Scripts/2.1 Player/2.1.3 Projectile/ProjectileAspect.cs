@@ -10,7 +10,7 @@ public readonly partial struct ProjectileAspect : IAspect
     private readonly RefRO<ProjectileComponent> projectileComponent;
     
     public float2 Position => transform.ValueRO.Position.xy;
-
+    
     private float Speed => projectileComponent.ValueRO.Speed;
 
     public void Move(float DeltaTime)
