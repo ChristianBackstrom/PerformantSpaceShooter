@@ -39,6 +39,8 @@ public partial struct SpawnAsteroidJob : IJobEntity
     public EntityCommandBuffer ECB;
     private void Execute(SpawnerAspect spawnerAspect)
     {
+        if (spawnerAspect.ShouldLimitTest) return;
+        
         spawnerAspect.AsteroidSpawnTimer -= DeltaTime;
         if (!spawnerAspect.TimeToSpawnAsteroid) return;
 
