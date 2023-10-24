@@ -6,6 +6,7 @@ using Unity.Entities;
 using Unity.Transforms;
 using UnityEngine;
 
+[BurstCompile]
 [UpdateInGroup(typeof(LateSimulationSystemGroup))]
 public partial struct LifetimeSystem : ISystem
 {
