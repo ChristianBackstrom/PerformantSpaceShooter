@@ -12,7 +12,9 @@ public partial struct FireProjectileSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        var ecb = new EntityCommandBuffer(Allocator.Temp);
+        var ecb = SystemAPI.GetSingleton<BeginInitializationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(state.WorldUnmanaged);
+
+        // var ecb = new EntityCommandBuffer(Allocator.Temp);
         foreach (var (projectile, transform) in SystemAPI.Query<ProjectileShooting, LocalTransform>().WithAll<FireProjectileTag>())
         {
             var newProjectile = ecb.Instantiate(projectile.ProjectilePrefab);
@@ -23,7 +25,7 @@ public partial struct FireProjectileSystem : ISystem
             ecb.SetComponent(newProjectile, projectileTransform);
         }
         
-        ecb.Playback(state.EntityManager);
-        ecb.Dispose();
+        // ecb.Playback(state.EntityManager);
+        // ecb.Dispose();
     }
 }

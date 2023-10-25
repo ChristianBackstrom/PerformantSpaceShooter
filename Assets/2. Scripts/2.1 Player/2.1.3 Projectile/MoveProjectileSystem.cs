@@ -23,6 +23,7 @@ public partial struct ProjectileMoveJob : IJobEntity
     [BurstCompile]
     private void Execute(ProjectileAspect projectile)
     {
+        
         projectile.Move(DeltaTime);
     }
 }

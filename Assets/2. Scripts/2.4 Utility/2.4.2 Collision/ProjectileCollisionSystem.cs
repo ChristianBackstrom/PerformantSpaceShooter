@@ -5,35 +5,35 @@ using Unity.Entities;
 using Unity.Transforms;
 using UnityEngine;
 
-[BurstCompile]
-public partial struct ProjectileCollisionSystem : ISystem
-{
-    private EntityQuery projectileGroup;
-    private EntityQuery asteroidGroup;
-    [BurstCompile]
-    public void OnCreate(ref SystemState state)
-    {
-    }
-
-    [BurstCompile]
-    public void OnUpdate(ref SystemState state)
-    {
-        projectileGroup = state.GetEntityQuery(ComponentType.ReadOnly<LocalTransform>(), ComponentType.ReadOnly<ProjectileTag>());
-        asteroidGroup = state.GetEntityQuery(ComponentType.ReadOnly<LocalTransform>(), ComponentType.ReadOnly<AsteroidTag>());
-        var ecbSingleton = SystemAPI.GetSingleton<BeginInitializationEntityCommandBufferSystem.Singleton>();
-        
-        var projectileCollisionJob = new ProjectileCollisionJob()
-        {
-            TransformTypeHandle = state.GetComponentTypeHandle<LocalTransform>(false),
-            EntityTypeHandle = state.GetEntityTypeHandle(),
-            TransformsToTestAgainst = asteroidGroup.ToComponentDataArray<LocalTransform>(Allocator.TempJob),
-            EntitiesToTestAgainst = asteroidGroup.ToEntityArray(Allocator.TempJob),
-            ECB = ecbSingleton.CreateCommandBuffer(state.WorldUnmanaged)
-        };
-        
-        state.Dependency = projectileCollisionJob.Schedule(projectileGroup, state.Dependency);
-    }
-}
+// [BurstCompile]
+// public partial struct ProjectileCollisionSystem : ISystem
+// {
+//     private EntityQuery projectileGroup;
+//     private EntityQuery asteroidGroup;
+//     [BurstCompile]
+//     public void OnCreate(ref SystemState state)
+//     {
+//     }
+//
+//     [BurstCompile]
+//     public void OnUpdate(ref SystemState state)
+//     {
+//         projectileGroup = state.GetEntityQuery(ComponentType.ReadOnly<LocalTransform>(), ComponentType.ReadOnly<ProjectileTag>());
+//         asteroidGroup = state.GetEntityQuery(ComponentType.ReadOnly<LocalTransform>(), ComponentType.ReadOnly<AsteroidTag>());
+//         var ecbSingleton = SystemAPI.GetSingleton<BeginInitializationEntityCommandBufferSystem.Singleton>();
+//         
+//         var projectileCollisionJob = new ProjectileCollisionJob()
+//         {
+//             TransformTypeHandle = state.GetComponentTypeHandle<LocalTransform>(false),
+//             EntityTypeHandle = state.GetEntityTypeHandle(),
+//             TransformsToTestAgainst = asteroidGroup.ToComponentDataArray<LocalTransform>(Allocator.TempJob),
+//             EntitiesToTestAgainst = asteroidGroup.ToEntityArray(Allocator.TempJob),
+//             ECB = ecbSingleton.CreateCommandBuffer(state.WorldUnmanaged)
+//         };
+//         
+//         state.Dependency = projectileCollisionJob.Schedule(projectileGroup, state.Dependency);
+//     }
+// }
 
 [BurstCompile]
 public struct ProjectileCollisionJob : IJobChunk
@@ -70,7 +70,7 @@ public struct ProjectileCollisionJob : IJobChunk
                 ECB.DestroyEntity(EntitiesToTestAgainst[j]);
                 hit = true;
             }
-        }
+        } 
     }
 }
 
