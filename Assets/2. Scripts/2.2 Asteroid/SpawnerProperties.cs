@@ -17,5 +17,8 @@ public struct AsteroidSpawnTimer : IComponentData
 
 public struct LimitTest : IComponentData
 {
-    public bool Value;
+    public bool AsteroidTest;
+    public int AsteroidAmount;
+    public bool ProjectileTest;
+    public int ProjectileAmount;
 }

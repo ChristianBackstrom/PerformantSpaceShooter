@@ -13,20 +13,16 @@ public partial struct LimitTestSystem : ISystem
     {
         state.Enabled = false;
         var ecbSingleton = SystemAPI.GetSingleton<BeginInitializationEntityCommandBufferSystem.Singleton>();
-        int amount = 1000;
-
 
         Entity projectilePrefab = SystemAPI.GetSingleton<ProjectileShooting>().ProjectilePrefab;
 
         new SpawnAsteroidTestJob()
         {
-            Amount = amount,
             ECB = ecbSingleton.CreateCommandBuffer(state.WorldUnmanaged),
         }.Schedule();
 
         new SpawnProjectileTestJob()
         {
-            Amount = amount,
             ECB = ecbSingleton.CreateCommandBuffer(state.WorldUnmanaged),
             ProjectilePrefab = projectilePrefab
         }.Schedule();
@@ -36,13 +32,12 @@ public partial struct LimitTestSystem : ISystem
 [BurstCompile]
 public partial struct SpawnAsteroidTestJob : IJobEntity
 {
-    public int Amount;
     public EntityCommandBuffer ECB;
     private void Execute(SpawnerAspect spawnerAspect)
     {
-        if (!spawnerAspect.ShouldLimitTest) return;
+        if (!spawnerAspect.ShouldLimitTestAsteroid) return;
         
-        for (int i = 0; i < Amount; i++)
+        for (int i = 0; i < spawnerAspect.AsteroidLimitTestAmount; i++)
         {
             Entity newAsteroid = ECB.Instantiate(spawnerAspect.AsteroidPrefab);
             
@@ -64,14 +59,13 @@ public partial struct SpawnAsteroidTestJob : IJobEntity
 [BurstCompile]
 public partial struct SpawnProjectileTestJob : IJobEntity
 {
-    public int Amount;
     public EntityCommandBuffer ECB;
     public Entity ProjectilePrefab;
     private void Execute(SpawnerAspect spawnerAspect)
     {
-        if (!spawnerAspect.ShouldLimitTest) return;
+        if (!spawnerAspect.ShouldLimitTestProjectile) return;
 
-        for (int i = 0; i < Amount; i++)
+        for (int i = 0; i < spawnerAspect.ProjectileLimitTestAmount; i++)
         {
             Entity newProjectile = ECB.Instantiate(ProjectilePrefab);
             

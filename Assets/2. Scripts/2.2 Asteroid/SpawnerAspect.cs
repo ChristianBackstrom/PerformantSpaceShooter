@@ -13,7 +13,10 @@ public readonly partial struct SpawnerAspect : IAspect
     private LocalTransform Transform => _transformAspect.ValueRO;
     public float3 Position => Transform.Position;
 
-    public bool ShouldLimitTest => _limitTest.ValueRO.Value;
+    public bool ShouldLimitTestAsteroid => _limitTest.ValueRO.AsteroidTest;
+    public bool ShouldLimitTestProjectile => _limitTest.ValueRO.ProjectileTest;
+    public int ProjectileLimitTestAmount => _limitTest.ValueRO.ProjectileAmount;
+    public int AsteroidLimitTestAmount => _limitTest.ValueRO.AsteroidAmount;
     public float2 FieldDimensions => _spawnerProperties.ValueRO.FieldDimensions;
 
     private readonly RefRO<SpawnerProperties> _spawnerProperties;

@@ -13,7 +13,13 @@ public class SpawnerMono : MonoBehaviour
     public GameObject Prefab;
     public uint RandomSeed;
     public float AsteroidSpawnRate;
-    public bool LimitTest;
+    [Space(20)]
+    [Header("Limit Test")]
+    public bool LimitTestAsteroids;
+    public int AsteroidAmount;
+    [Space(5)]
+    public bool LimitTestProjectiles;
+    public int ProjectileAmount;
 
     [SerializeField] private bool useGizmos;
     
@@ -69,7 +75,10 @@ public class SpawnerBaker : Baker<SpawnerMono>
         
         AddComponent(spawnerEntity, new LimitTest()
         {
-            Value = authoring.LimitTest
+            AsteroidTest = authoring.LimitTestAsteroids,
+            AsteroidAmount = authoring.AsteroidAmount,
+            ProjectileTest = authoring.LimitTestProjectiles,
+            ProjectileAmount = authoring.ProjectileAmount,
         });
     }
 }
