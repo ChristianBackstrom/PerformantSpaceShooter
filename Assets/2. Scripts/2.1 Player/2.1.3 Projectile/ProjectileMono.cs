@@ -22,10 +22,10 @@ public class ProjectileBaker : Baker<ProjectileMono>
         
         AddComponent<ProjectileTag>(entity);
         
-        AddComponent(entity, new LifetimeComponent()
-        {
-            Lifetime = authoring.Lifetime,
-            Time = authoring.Lifetime
-        });
+        // AddComponent(entity, new LifetimeComponent()
+        // {
+        //     Lifetime = authoring.Lifetime,
+        //     Time = authoring.Lifetime
+        // });
     }
 }

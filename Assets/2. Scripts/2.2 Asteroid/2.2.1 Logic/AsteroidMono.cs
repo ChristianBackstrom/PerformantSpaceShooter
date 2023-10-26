@@ -21,11 +21,11 @@ public class AsteroidBaker : Baker<AsteroidMono>
         });
         AddComponent<AsteroidHeading>(asteroidEntity);
         
-        AddComponent(asteroidEntity, new LifetimeComponent()
-        {
-            Time = authoring.Lifetime,
-            Lifetime = authoring.Lifetime,
-        });
+        // AddComponent(asteroidEntity, new LifetimeComponent()
+        // {
+        //     Time = authoring.Lifetime,
+        //     Lifetime = authoring.Lifetime,
+        // });
         
         AddComponent<AsteroidTag>(asteroidEntity);
     }
