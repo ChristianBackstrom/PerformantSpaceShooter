@@ -8,32 +8,32 @@ using Unity.Physics;
 using Unity.Physics.Systems;
 using UnityEngine;
 
-[UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
-[UpdateAfter(typeof(PhysicsSystemGroup))]
-[BurstCompile]
-public partial struct PhysicsCollision : ISystem
-{
-    [BurstCompile]
-    public void OnCreate(ref SystemState state)
-    {
-        state.RequireForUpdate<ProjectileTag>();
-        state.RequireForUpdate<AsteroidTag>();
-        state.RequireForUpdate<SimulationSingleton>();
-    }
-
-    [BurstCompile]
-    public void OnUpdate(ref SystemState state)
-    {
-        var ecbSingleton = SystemAPI.GetSingleton<BeginInitializationEntityCommandBufferSystem.Singleton>();
-
-        state.Dependency = new TriggerCollisionJob()
-        {
-            ProjectileTagGroup = SystemAPI.GetComponentLookup<ProjectileTag>(),
-            AsteroidGroup = SystemAPI.GetComponentLookup<AsteroidTag>(),
-            ECB = ecbSingleton.CreateCommandBuffer(state.WorldUnmanaged)
-        }.Schedule(SystemAPI.GetSingleton<SimulationSingleton>(), state.Dependency);
-    }
-}
+// [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
+// [UpdateAfter(typeof(PhysicsSystemGroup))]
+// [BurstCompile]
+// public partial struct PhysicsCollision : ISystem
+// {
+//     [BurstCompile]
+//     public void OnCreate(ref SystemState state)
+//     {
+//         state.RequireForUpdate<ProjectileTag>();
+//         state.RequireForUpdate<AsteroidTag>();
+//         state.RequireForUpdate<SimulationSingleton>();
+//     }
+//
+//      [BurstCompile]
+//      public void OnUpdate(ref SystemState state)
+//      {
+//          var ecbSingleton = SystemAPI.GetSingleton<BeginInitializationEntityCommandBufferSystem.Singleton>();
+//      
+//          state.Dependency = new TriggerCollisionJob()
+//          {
+//              ProjectileTagGroup = SystemAPI.GetComponentLookup<ProjectileTag>(),
+//              AsteroidGroup = SystemAPI.GetComponentLookup<AsteroidTag>(),
+//              ECB = ecbSingleton.CreateCommandBuffer(state.WorldUnmanaged)
+//          }.Schedule(SystemAPI.GetSingleton<SimulationSingleton>(), state.Dependency);
+//      }
+// }
 
 [BurstCompile]
 public struct TriggerCollisionJob : ITriggerEventsJob
