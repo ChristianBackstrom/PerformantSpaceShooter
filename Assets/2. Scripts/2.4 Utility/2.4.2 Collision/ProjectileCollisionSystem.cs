@@ -18,34 +18,21 @@ public partial struct ProjectileCollisionSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        // var ecb = SystemAPI.GetSingleton<BeginInitializationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(state.WorldUnmanaged);
-        //
-        // foreach (var (asteroidTransform, asteroidEntity) in SystemAPI.Query<RefRW<LocalTransform>>()
-        //              .WithAll<AsteroidTag>().WithEntityAccess())
-        // {
-        //     foreach (var (projectileTransform, bulletEntity) in SystemAPI.Query<RefRW<LocalTransform>>().WithAll<ProjectileTag>().WithEntityAccess())
-        //     {
-        //         
-        //         if (MiscMath.GetDistanceSqr(projectileTransform.ValueRO.Position.xy, asteroidTransform.ValueRO.Position.xy) < 1f)
-        //         {
-        //             ecb.DestroyEntity(asteroidEntity);
-        //             ecb.DestroyEntity(bulletEntity);
-        //         }
-        //     }
-        // }
+        var ecb = SystemAPI.GetSingleton<BeginInitializationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(state.WorldUnmanaged);
         
-        // projectileGroup = state.GetEntityQuery(ComponentType.ReadOnly<LocalTransform>(), ComponentType.ReadOnly<ProjectileTag>());
-        // asteroidGroup = state.GetEntityQuery(ComponentType.ReadOnly<LocalTransform>(), ComponentType.ReadOnly<AsteroidTag>());
-        // var projectileCollisionJob = new ProjectileCollisionJob()
-        // {
-        //     TransformTypeHandle = state.GetComponentTypeHandle<LocalTransform>(false),
-        //     EntityTypeHandle = state.GetEntityTypeHandle(),
-        //     TransformsToTestAgainst = asteroidGroup.ToComponentDataArray<LocalTransform>(Allocator.TempJob),
-        //     EntitiesToTestAgainst = asteroidGroup.ToEntityArray(Allocator.TempJob),
-        //     ECB = ecb
-        // };
-        //
-        // state.Dependency = projectileCollisionJob.ScheduleParallel(projectileGroup, state.Dependency);
+        foreach (var (asteroidTransform, asteroidEntity) in SystemAPI.Query<RefRW<LocalTransform>>()
+                     .WithAll<AsteroidTag>().WithEntityAccess())
+        {
+            foreach (var (projectileTransform, bulletEntity) in SystemAPI.Query<RefRW<LocalTransform>>().WithAll<ProjectileTag>().WithEntityAccess())
+            {
+                
+                if (MiscMath.GetDistanceSqr(projectileTransform.ValueRO.Position.xy, asteroidTransform.ValueRO.Position.xy) < 1f)
+                {
+                    ecb.DestroyEntity(asteroidEntity);
+                    ecb.DestroyEntity(bulletEntity);
+                }
+            }
+        }
     }
 }
 
@@ -88,25 +75,3 @@ public struct ProjectileCollisionJob : IJobChunk
         } 
     }
 }
-
-
-// foreach (var asteroidAspect in SystemAPI.Query<AsteroidFlyAspect>())
-// {
-//     float2 asteroidPosition = asteroidAspect.Position;
-//
-//     bool hit = false;
-//             
-//     foreach (var projectileAspect in SystemAPI.Query<ProjectileAspect>())
-//     {
-//         if (hit) continue;
-//                 
-//         float2 projectilePosition = projectileAspect.Position;
-//
-//         if (MiscMath.GetDistanceSqr(projectilePosition, asteroidPosition) <= 1)
-//         {
-//             ECB.DestroyEntity(asteroidAspect.Entity);
-//             ECB.DestroyEntity(projectileAspect.Entity);
-//             hit = true;
-//         }
-//     }
-// }

@@ -195,9 +195,9 @@ MonoBehaviour:
   RandomSeed: 100
   AsteroidSpawnRate: 0.001
   LimitTestAsteroids: 1
-  AsteroidAmount: 100
+  AsteroidAmount: 1000
   LimitTestProjectiles: 1
-  ProjectileAmount: 100
+  ProjectileAmount: 1000
   useGizmos: 1
 --- !u!1 &1877025861
 GameObject:
