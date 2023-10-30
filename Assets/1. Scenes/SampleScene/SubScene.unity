@@ -193,11 +193,11 @@ MonoBehaviour:
   MaxSpawnDistance: 56.9
   Prefab: {fileID: 970698392903307348, guid: ea09f295acb16574a91a1cc1ab574754, type: 3}
   RandomSeed: 100
-  AsteroidSpawnRate: 0.01
+  AsteroidSpawnRate: 0.001
   LimitTestAsteroids: 1
   AsteroidAmount: 1000
   LimitTestProjectiles: 1
-  ProjectileAmount: 100
+  ProjectileAmount: 1000
   useGizmos: 1
 --- !u!1 &1877025861
 GameObject:

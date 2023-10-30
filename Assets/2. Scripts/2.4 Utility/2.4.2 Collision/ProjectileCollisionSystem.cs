@@ -18,21 +18,21 @@ public partial struct ProjectileCollisionSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        var ecb = SystemAPI.GetSingleton<BeginInitializationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(state.WorldUnmanaged);
-        
-        foreach (var (asteroidTransform, asteroidEntity) in SystemAPI.Query<RefRW<LocalTransform>>()
-                     .WithAll<AsteroidTag>().WithEntityAccess())
-        {
-            foreach (var (projectileTransform, bulletEntity) in SystemAPI.Query<RefRW<LocalTransform>>().WithAll<ProjectileTag>().WithEntityAccess())
-            {
-                
-                if (MiscMath.GetDistanceSqr(projectileTransform.ValueRO.Position.xy, asteroidTransform.ValueRO.Position.xy) < 1f)
-                {
-                    ecb.DestroyEntity(asteroidEntity);
-                    ecb.DestroyEntity(bulletEntity);
-                }
-            }
-        }
+        // var ecb = SystemAPI.GetSingleton<BeginInitializationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(state.WorldUnmanaged);
+        //
+        // foreach (var (asteroidTransform, asteroidEntity) in SystemAPI.Query<RefRW<LocalTransform>>()
+        //              .WithAll<AsteroidTag>().WithEntityAccess())
+        // {
+        //     foreach (var (projectileTransform, bulletEntity) in SystemAPI.Query<RefRW<LocalTransform>>().WithAll<ProjectileTag>().WithEntityAccess())
+        //     {
+        //         
+        //         if (MiscMath.GetDistanceSqr(projectileTransform.ValueRO.Position.xy, asteroidTransform.ValueRO.Position.xy) < 1f)
+        //         {
+        //             ecb.DestroyEntity(asteroidEntity);
+        //             ecb.DestroyEntity(bulletEntity);
+        //         }
+        //     }
+        // }
         
         // projectileGroup = state.GetEntityQuery(ComponentType.ReadOnly<LocalTransform>(), ComponentType.ReadOnly<ProjectileTag>());
         // asteroidGroup = state.GetEntityQuery(ComponentType.ReadOnly<LocalTransform>(), ComponentType.ReadOnly<AsteroidTag>());
