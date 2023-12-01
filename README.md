@@ -41,4 +41,4 @@ After I tried the colliders I decided that I would redo the distance type collis
 
 1 Player
 
-Average FPS of 140
+fps: ~140
