@@ -12,7 +12,11 @@ public partial struct LimitTestSystem : ISystem
     public void OnUpdate(ref SystemState state)
     {
         state.Enabled = false;
-        var ecbSingleton = SystemAPI.GetSingleton<BeginInitializationEntityCommandBufferSystem.Singleton>();
+        
+         if (!SystemAPI.TryGetSingleton<BeginInitializationEntityCommandBufferSystem.Singleton>(out var ecbSingleton))
+         {
+             return;
+         }
 
         Entity projectilePrefab = SystemAPI.GetSingleton<ProjectileShooting>().ProjectilePrefab;
 

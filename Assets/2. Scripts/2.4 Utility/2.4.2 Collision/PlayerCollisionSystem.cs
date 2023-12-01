@@ -33,8 +33,8 @@ public partial struct PlayerCollisionSystem : ISystem
                 {
                     hit = true;
                     
-                    ECB.DestroyEntity(entity);
-                    ECB.DestroyEntity(asteroidEntity);
+                    // ECB.DestroyEntity(entity);
+                    // ECB.DestroyEntity(asteroidEntity);
                 }
             }
         }

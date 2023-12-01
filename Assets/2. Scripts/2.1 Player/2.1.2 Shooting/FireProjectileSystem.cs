@@ -10,32 +10,40 @@ using UnityEngine;
 [UpdateBefore(typeof(TransformSystemGroup))]
 public partial struct FireProjectileSystem : ISystem
 {
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<ProjectileShooting>();
+    }
+
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        var ecb = SystemAPI.GetSingleton<BeginInitializationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(state.WorldUnmanaged);
-
-        // var ecb = new EntityCommandBuffer(Allocator.Temp);
-        foreach (var (projectile, transform) in SystemAPI.Query<ProjectileShooting, LocalTransform>().WithAll<FireProjectileTag>())
+        if (SystemAPI.TryGetSingleton<BeginInitializationEntityCommandBufferSystem.Singleton>(out BeginInitializationEntityCommandBufferSystem.Singleton ecbSingleton))
         {
-            var newProjectile = ecb.Instantiate(projectile.ProjectilePrefab);
-               
-            var projectileTransform = LocalTransform.FromPositionRotationScale
-                (transform.Position + transform.Right(), transform.Rotation, 0.5f);
-                
-            ecb.SetComponent(newProjectile, projectileTransform);
+            EntityCommandBuffer ecb = ecbSingleton.CreateCommandBuffer(state.WorldUnmanaged);
 
-            // new FireProjectileJob()
-            // {
-            //     ECB = ecb,
-            //     ProjectilePrefab = projectile.ProjectilePrefab,
-            //     Rotation = transform.Rotation,
-            //     SpawnPosition = transform.Position + transform.Right()
-            // }.Schedule();
-        }
+            // var ecb = new EntityCommandBuffer(Allocator.Temp);
+            foreach (var (projectile, transform) in SystemAPI.Query<ProjectileShooting, LocalTransform>().WithAll<FireProjectileTag>())
+            {
+                var newProjectile = ecb.Instantiate(projectile.ProjectilePrefab);
+                   
+                var projectileTransform = LocalTransform.FromPositionRotationScale
+                    (transform.Position + transform.Right(), transform.Rotation, 0.5f);
+                    
+                ecb.SetComponent(newProjectile, projectileTransform);
         
-        // ecb.Playback(state.EntityManager);
-        // ecb.Dispose();
+                // new FireProjectileJob()
+                // {
+                //     ECB = ecb,
+                //     ProjectilePrefab = projectile.ProjectilePrefab,
+                //     Rotation = transform.Rotation,
+                //     SpawnPosition = transform.Position + transform.Right()
+                // }.Schedule();
+            }
+            
+            // ecb.Playback(state.EntityManager);
+            // ecb.Dispose();
+        }
     }
 }
 

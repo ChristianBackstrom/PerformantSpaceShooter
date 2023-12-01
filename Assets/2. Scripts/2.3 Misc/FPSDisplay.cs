@@ -35,11 +35,12 @@ public class FPSDisplay : MonoBehaviour
 
         float msec = _deltaTime * 1000.0f;
         float fps = 1.0f / _deltaTime;
-        int activeAsteroids =
-            _entityManager.CreateEntityQuery(ComponentType.ReadOnly<AsteroidTag>()).CalculateEntityCount();
+        int activeAsteroids = 0;
+        int activeProjectiles = 0;
+        
 
-        int activeProjectiles = 
-            _entityManager.CreateEntityQuery(ComponentType.ReadOnly<ProjectileTag>()).CalculateEntityCount();
+        activeAsteroids = _entityManager.CreateEntityQuery(ComponentType.ReadOnly<AsteroidTag>()).CalculateEntityCount();
+        activeProjectiles = _entityManager.CreateEntityQuery(ComponentType.ReadOnly<ProjectileTag>()).CalculateEntityCount();
 
         string text = string.Format("{0:0.0} ms ({1:0.} fps \n Asteroids: {2} \n Projectiles: {3} )", msec, fps, activeAsteroids, activeProjectiles);
         GUI.Label(rect, text, style);
