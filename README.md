@@ -6,9 +6,13 @@ This is a space shooter game that intends to be very performant and be able to h
 ## Inputs
 
 A/D - Rotate ship
+
 W - move the ship forward
+
 Left click - Shoot
+
 1 - restart/start ECS Game
+
 Escape - Quit game
 
 ## Optimization
