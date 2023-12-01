@@ -18,7 +18,15 @@ public partial struct LimitTestSystem : ISystem
              return;
          }
 
-        Entity projectilePrefab = SystemAPI.GetSingleton<ProjectileShooting>().ProjectilePrefab;
+        ProjectileShooting projectileShooting;
+        bool found = SystemAPI.TryGetSingleton<ProjectileShooting>(out projectileShooting);
+
+        if (!found)
+        {
+            return;
+        }
+
+        Entity projectilePrefab = projectileShooting.ProjectilePrefab;
 
         new SpawnAsteroidTestJob()
         {
