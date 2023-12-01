@@ -3,6 +3,14 @@
 
 This is a space shooter game that intends to be very performant and be able to have a lot of asteroids and projectiles at the same time on the screen. The project is done using Unity with ECS (Entity Component System) and DOTS (DATA-ORIENTED TECHNOLOGY STACK). ECS and Dots is a way to use Unity in a data-oriented way. What makes this different from normal Unity is that it stores data very compactly so that it is very easy to get acces to this data. This in return gives great performance but the code becomes a lot more boilerplaty.
 
+## Inputs
+
+A/D - Rotate ship
+W - move the ship forward
+Left click - Shoot
+1 - restart/start ECS Game
+Escape - Quit game
+
 ## Optimization
 
 ### [Unity.Physics]([https://link-url-here.org](https://github.com/ChristianBackstrom/PerformantSpaceShooter/releases/tag/v0.5.1))
