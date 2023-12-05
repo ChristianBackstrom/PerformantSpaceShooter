@@ -38,6 +38,7 @@ public partial struct LimitTestSystem : ISystem
             ECB = ecbSingleton.CreateCommandBuffer(state.WorldUnmanaged),
             ProjectilePrefab = projectilePrefab
         }.Schedule();
+        
     }
 }
 
