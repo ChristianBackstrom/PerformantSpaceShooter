@@ -32,7 +32,8 @@ fps: ~7.5
 
 ### [Distance Check]([https://link-url-here.org](https://github.com/ChristianBackstrom/PerformantSpaceShooter/releases/tag/v0.5.2))
 After I tried the colliders I decided that I would redo the distance type collision check, but now that I had more knowledge and understanding of how ECS and Dots worked I could make it faster. In this version of the distance check I was aware that I should try and get only the data I needed. In the query I instead of getting the whole aspect with all the connected data I instead added tags to the entities and only got the location and entity which had that certain tag. This resulted in way less computing time and power which was needed to complete the distance check calculations.
-![image](https://github.com/ChristianBackstrom/PerformantSpaceShooter/assets/54669344/ea8e3358-6254-4c9a-9368-30cd1146b09e)
+![image](https://github.com/ChristianBackstrom/PerformantSpaceShooter/assets/54669344/0c1d4d26-9ace-4e4d-8eb4-c404bc796ad9)
+
 
 #### Test options and result for using improved Distance Check:
 
